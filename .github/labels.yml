@@ -1,0 +1,63 @@
+template: 'facelessuser:master-labels:labels.yml:master'
+
+# Wildcard labels
+
+brace_expansion: true
+extended_glob: true
+minus_negate: false
+
+rules:
+  - labels: ['C: infrastructure']
+    patterns: ['*|{tools,requirements,.github}/**|!*.md']
+
+  - labels: ['C: source']
+    patterns: ['wcmatch/**']
+
+  - labels: ['C: tests']
+    patterns: ['tests/**']
+
+  - labels: ['C: docs']
+    patterns: ['docs/**|*.md']
+
+  - labels: ['C: glob']
+    patterns: ['**/?(test_)glob*|!docs/**']
+
+  - labels: ['C: fnmatch']
+    patterns: ['**/?(test_)fnmatch*|!docs/**']
+
+  - labels: ['C: wcmatch']
+    patterns: ['**/?(test_)wcmatch*|!docs/**']
+
+  - labels: ['C: pathlib']
+    patterns: ['**/?(test_)pathlib*|!docs/**']
+
+  - labels: ['C: pattern-parser']
+    patterns: ['**/?(test_|_)wcparse*|!docs/**']
+
+# Label management
+
+labels:
+- name: 'C: glob'
+  renamed: glob
+  color: subcategory
+  description: Glob library.
+
+- name: 'C: fnmatch'
+  renamed: fnmatch
+  color: subcategory
+  description: Fnmatch library.
+
+- name: 'C: wcmatch'
+  renamed: wcmatch
+  color: subcategory
+  description: Wcmatch library.
+
+- name: 'C: pathlib'
+  renamed: pathlib
+  color: subcategory
+  description: Pathlib library.
+
+- name: 'C: pattern-parser'
+  renamed: pattern-parser
+  color: subcategory
+  description: Related to pattern parsing.

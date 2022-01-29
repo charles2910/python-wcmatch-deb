@@ -1,0 +1,7 @@
+[run]
+omit=
+    wcmatch/pep562.py
+
+[report]
+omit=
+    wcmatch/pep562.py

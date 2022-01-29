@@ -1,0 +1,36 @@
+Source: python-wcmatch
+Section: python
+Priority: optional
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders: Samuel Henrique <samueloph@debian.org>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-setuptools, python3-all, python3-pytest, python3-bracex
+Standards-Version: 4.6.0
+Homepage: https://github.com/facelessuser/wcmatch
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-wcmatch
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-wcmatch.git
+Testsuite: autopkgtest-pkg-python
+Rules-Requires-Root: no
+
+Package: python3-wcmatch
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}
+Description: Wildcard File Name matching library (Python 3)
+ Wildcard Match provides an enhanced fnmatch, glob, and pathlib library in
+ order to provide file matching and globbing that more closely follows the
+ features found in Bash. In some ways these libraries are similar to Python's
+ builtin libraries as they provide a similar interface to match, filter, and
+ glob the file system. But they also include a number of features found in
+ Bash's globbing such as backslash escaping, brace expansion, extended glob
+ pattern groups, etc. They also add a number of new useful functions as well,
+ such as globmatch which functions like fnmatch, but for paths.
+ .
+ Wildcard Match also adds a file search utility called wcmatch that is built on
+ top of fnmatch and globmatch. It was originally written for Rummage, but split
+ out into this project to be used by other projects that may find its approach
+ useful.
+ .
+ Bash is used as a guide when making decisions on behavior for fnmatch and
+ glob. Behavior may differ from Bash version to Bash version, but an attempt is
+ made to keep Wildcard Match up with the latest relevant changes.
+ .
+ This package installs the library for Python 3.

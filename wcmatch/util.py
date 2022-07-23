@@ -9,7 +9,6 @@ from functools import wraps
 import warnings
 from typing import Any, Callable, Tuple, AnyStr, Match, Pattern, Optional, cast
 
-PY37 = (3, 7) <= sys.version_info
 PY310 = (3, 10) <= sys.version_info
 
 UNICODE = 0
@@ -115,7 +114,7 @@ def norm_pattern(pattern: AnyStr, normalize: Optional[bool], is_raw_chars: bool,
         elif is_raw_chars and m.group(3):
             char = cast(AnyStr, bytes([int(m.group(3)[2:], 16)]) if is_bytes else chr(int(m.group(3)[2:], 16)))
         elif is_raw_chars and not is_bytes and m.group(5):
-            char = unicodedata.lookup(m.group(5)[3:-1])  # type: ignore[assignment]
+            char = unicodedata.lookup(m.group(5)[3:-1])
         elif not is_raw_chars or m.group(5 if is_bytes else 6):
             char = m.group(0)
             if ignore_escape:

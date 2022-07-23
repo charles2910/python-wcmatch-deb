@@ -2,26 +2,9 @@
 Wild Card Match.
 
 A custom implementation of `fnmatch`.
-
-Licensed under MIT
-Copyright (c) 2018 - 2020 Isaac Muse <isaacmuse@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-documentation files (the "Software"), to deal in the Software without restriction, including without limitation
-the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions
-of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-IN THE SOFTWARE.
 """
 from . import _wcparse
-from typing import Tuple, List, AnyStr, Iterable, Union, Sequence
+from typing import Tuple, List, AnyStr, Iterable, Union, Sequence, Optional
 
 __all__ = (
     "CASE", "EXTMATCH", "IGNORECASE", "RAWCHARS",
@@ -71,23 +54,25 @@ def _flag_transform(flags: int) -> int:
 
 
 def translate(
-    patterns: Union[str, bytes, Sequence[AnyStr]],
+    patterns: Union[AnyStr, Sequence[AnyStr]],
     *,
     flags: int = 0,
-    limit: int = _wcparse.PATTERN_LIMIT
+    limit: int = _wcparse.PATTERN_LIMIT,
+    exclude: Optional[Union[AnyStr, Sequence[AnyStr]]] = None
 ) -> Tuple[List[AnyStr], List[AnyStr]]:
     """Translate `fnmatch` pattern."""
 
     flags = _flag_transform(flags)
-    return _wcparse.translate(_wcparse.to_str_sequence(patterns), flags, limit)
+    return _wcparse.translate(patterns, flags, limit, exclude=exclude)
 
 
 def fnmatch(
     filename: AnyStr,
-    patterns: Union[str, bytes, Sequence[AnyStr]],
+    patterns: Union[AnyStr, Sequence[AnyStr]],
     *,
     flags: int = 0,
-    limit: int = _wcparse.PATTERN_LIMIT
+    limit: int = _wcparse.PATTERN_LIMIT,
+    exclude: Optional[Union[AnyStr, Sequence[AnyStr]]] = None
 ) -> bool:
     """
     Check if filename matches pattern.
@@ -97,22 +82,23 @@ def fnmatch(
     """
 
     flags = _flag_transform(flags)
-    return bool(_wcparse.compile(_wcparse.to_str_sequence(patterns), flags, limit).match(filename))
+    return bool(_wcparse.compile(patterns, flags, limit, exclude=exclude).match(filename))
 
 
 def filter(  # noqa A001
     filenames: Iterable[AnyStr],
-    patterns: Union[str, bytes, Sequence[AnyStr]],
+    patterns: Union[AnyStr, Sequence[AnyStr]],
     *,
     flags: int = 0,
-    limit: int = _wcparse.PATTERN_LIMIT
+    limit: int = _wcparse.PATTERN_LIMIT,
+    exclude: Optional[Union[AnyStr, Sequence[AnyStr]]] = None
 ) -> List[AnyStr]:
     """Filter names using pattern."""
 
     matches = []
 
     flags = _flag_transform(flags)
-    obj = _wcparse.compile(_wcparse.to_str_sequence(patterns), flags, limit)
+    obj = _wcparse.compile(patterns, flags, limit, exclude=exclude)
 
     for filename in filenames:
         if obj.match(filename):

@@ -3,7 +3,12 @@ Section: python
 Priority: optional
 Maintainer: Debian Python Team <team+python@tracker.debian.org>
 Uploaders: Samuel Henrique <samueloph@debian.org>
-Build-Depends: debhelper-compat (= 13), dh-python, python3-setuptools, python3-all, python3-pytest, python3-bracex
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-bracex,
+               python3-pytest,
+               python3-setuptools
 Standards-Version: 4.6.1
 Homepage: https://github.com/facelessuser/wcmatch
 Vcs-Browser: https://salsa.debian.org/python-team/packages/python-wcmatch
@@ -13,7 +18,7 @@ Rules-Requires-Root: no
 
 Package: python3-wcmatch
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Description: Wildcard File Name matching library (Python 3)
  Wildcard Match provides an enhanced fnmatch, glob, and pathlib library in
  order to provide file matching and globbing that more closely follows the

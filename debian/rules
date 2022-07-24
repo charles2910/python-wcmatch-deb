@@ -5,4 +5,7 @@ export PYBUILD_NAME=wcmatch
 %:
 	dh $@ --with python3 --buildsystem=pybuild
 
+execute_after_dh_auto_install:
+	$(RM) -v debian/python3-wcmatch/usr/lib/python3*/dist-packages/wcmatch-*.dist-info/licenses/LICENSE.md
+
 override_dh_auto_test:
